@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Flynn Hong / AutumnWater — game programmer working across Unity, Unreal Engine, gameplay systems and editor tools."><title>Flynn Hong / 秋水 (AutumnWater) - Game Programmer Portfolio</title>
+  <style>
+    :root {
+      --paper: #f3eee3;
+      --paper-deep: #e3d7c2;
+      --ink: #191815;
+      --muted: #5d5a51;
+      --line: #24221e;
+      --panel: #fff9eb;
+      --green: #9fbd57;
+      --blue: #315f91;
+      --red: #b94e4a;
+      --gold: #d49b45;
+      --teal: #4c918b;
+      --shadow: rgba(25, 24, 21, 0.16);
+      font-family: "Trebuchet MS", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      overflow-x: hidden;
+      background:
+        linear-gradient(90deg, rgba(36, 34, 30, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(36, 34, 30, 0.05) 1px, transparent 1px),
+        var(--paper);
+      background-size: 36px 36px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .shell {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 2px solid var(--line);
+      background: rgba(243, 238, 227, 0.92);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--line);
+      background: var(--green);
+      box-shadow: 4px 4px 0 var(--line);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .hero {
+      min-height: auto;
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(460px, 1.08fr);
+      gap: 44px;
+      align-items: center;
+      padding: 88px 0 58px;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 2px solid var(--line);
+      background: var(--panel);
+      box-shadow: 3px 3px 0 var(--line);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 {
+      font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 22px 0 0;
+      font-size: 68px;
+      line-height: 0.96;
+      text-wrap: pretty;
+      overflow-wrap: anywhere;
+    }
+
+    .lead {
+      max-width: 690px;
+      margin: 24px 0 0;
+      color: #303028;
+      font-size: 19px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 2px solid var(--line);
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: 4px 4px 0 var(--gold);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .button.secondary {
+      background: var(--panel);
+      color: var(--ink);
+      box-shadow: 4px 4px 0 var(--teal);
+    }
+
+    .hero-board {
+      display: grid;
+      grid-template-columns: 1fr 0.72fr;
+      grid-template-rows: 245px 170px 170px;
+      gap: 14px;
+    }
+
+    .media-tile {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid var(--line);
+      background: #161512;
+      box-shadow: 6px 6px 0 var(--shadow);
+    }
+
+    .media-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .media-tile.large {
+      grid-row: span 2;
+    }
+
+    .media-tile.tall {
+      grid-row: span 2;
+    }
+
+    .media-caption {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 10px;
+      border: 2px solid rgba(255, 249, 235, 0.82);
+      background: rgba(25, 24, 21, 0.78);
+      color: #fff9eb;
+      font-size: 12px;
+      font-weight: 900;
+      flex-wrap: wrap;
+    }
+
+    .hero-card {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 2px solid var(--line);
+      background: var(--panel);
+      box-shadow: 6px 6px 0 var(--line);
+    }
+
+    .hero-card div {
+      padding: 16px;
+      border-right: 2px solid var(--line);
+    }
+
+    .hero-card div:last-child {
+      border-right: 0;
+    }
+
+    .hero-card strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .hero-card span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    section {
+      padding: 58px 0;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(220px, 320px) 1fr;
+      gap: 34px;
+      align-items: start;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.05;
+    }
+
+    .section-head p,
+    .body-copy {
+      margin: 0;
+      color: #33322c;
+      font-size: 18px;
+      line-height: 1.72;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .proof {
+      min-height: 126px;
+      padding: 18px;
+      border: 2px solid var(--line);
+      background: var(--panel);
+      box-shadow: 5px 5px 0 var(--shadow);
+    }
+
+    .proof strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    .proof span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .feature {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
+      gap: 18px;
+      margin-bottom: 18px;
+      padding: 18px;
+      border: 2px solid var(--line);
+      background: var(--panel);
+      box-shadow: 7px 7px 0 var(--shadow);
+    }
+
+    .feature.reverse {
+      grid-template-columns: minmax(360px, 0.88fr) minmax(0, 1.12fr);
+    }
+
+    .feature-media {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      min-height: 360px;
+    }
+
+    .feature-media.single {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-media img {
+      width: 100%;
+      height: 100%;
+      min-height: 170px;
+      object-fit: cover;
+      border: 2px solid var(--line);
+      background: #181713;
+    }
+
+    .feature-media img.wide {
+      grid-column: span 2;
+    }
+
+    .feature-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 6px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      border: 2px solid var(--line);
+      background: #eadfc8;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .pill.blue {
+      background: #c8d8ec;
+    }
+
+    .pill.green {
+      background: #d9e8b2;
+    }
+
+    .pill.red {
+      background: #ecc8bf;
+    }
+
+    .pill.gold {
+      background: #f0d49a;
+    }
+
+    .feature h3 {
+      margin: 16px 0 0;
+      font-size: 34px;
+      line-height: 1.08;
+    }
+
+    .feature p {
+      margin: 14px 0 0;
+      color: #34332e;
+      font-size: 16px;
+      line-height: 1.68;
+    }
+
+    .work-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .code-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .code-card,
+    .note-card,
+    .about-panel {
+      border: 2px solid var(--line);
+      background: var(--panel);
+      box-shadow: 5px 5px 0 var(--shadow);
+    }
+
+    .code-card {
+      padding: 22px;
+      min-height: 260px;
+    }
+
+    .code-card.dark {
+      background: #20211d;
+      color: #fff3d4;
+    }
+
+    .code-card h3,
+    .note-card h3,
+    .about-panel h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.18;
+    }
+
+    .code-card p,
+    .note-card p,
+    .about-panel p {
+      margin: 14px 0 0;
+      color: #34332e;
+      font-size: 16px;
+      line-height: 1.68;
+    }
+
+    .code-card.dark p,
+    .code-card.dark .code-line {
+      color: #fff3d4;
+    }
+
+    .code-line {
+      display: block;
+      margin-top: 12px;
+      color: #2f332d;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .note-card {
+      padding: 20px;
+      min-height: 240px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .about-panel {
+      padding: 24px;
+    }
+
+    .contact-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 28px;
+      border: 3px solid var(--line);
+      background: var(--green);
+      box-shadow: 8px 8px 0 var(--line);
+    }
+
+    .contact-band h2 {
+      font-size: 36px;
+    }
+
+    .link-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+      font-weight: 900;
+    }
+
+    footer {
+      padding: 30px 0 44px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 980px) {
+      .nav,
+      .hero,
+      .section-head,
+      .feature,
+      .feature.reverse,
+      .code-feature,
+      .about-grid,
+      .contact-band {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        display: grid;
+        padding: 14px 0;
+      }
+
+      .hero {
+        min-height: 0;
+      }
+
+      h1 {
+        font-size: 46px;
+      }
+
+      .proof-grid,
+      .note-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-board,
+      .hero-card,
+      .feature-media,
+      .feature-media.single,
+      .proof-grid,
+      .note-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .media-tile.large,
+      .media-tile.tall {
+        grid-row: auto;
+      }
+
+      .hero-board {
+        grid-template-rows: repeat(4, 190px) auto;
+      }
+
+      .hero-card {
+        grid-column: auto;
+      }
+
+      .hero-card div,
+      .hero-card div:last-child {
+        border-right: 0;
+        border-bottom: 2px solid var(--line);
+      }
+
+      .hero-card div:last-child {
+        border-bottom: 0;
+      }
+
+      .feature-media img.wide {
+        grid-column: auto;
+      }
+
+      h1 {
+        font-size: 31px;
+        line-height: 1.05;
+        word-break: break-all;
+      }
+
+      .lead {
+        font-size: 17px;
+        overflow-wrap: anywhere;
+      }
+
+      h2 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <div class="shell nav">
+      <div class="brand">
+        <span class="brand-mark">FH</span>
+        <div>
+          Flynn Hong / 秋水
+          <small>Game Programmer · Unreal / Unity / Gameplay Tools</small>
+        </div>
+      </div>
+      <nav aria-label="主要导航">
+        <a href="#work">Projects</a>
+        <a href="#tools">Tools</a>
+        <a href="#notes">Notes</a>
+        <a href="#about">About</a>
+        <a href="#contact">Links</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Game Programmer · Multi-engine Creator</span>
+        <h1>把玩法想法做成可以运行、可以调试、可以交付的游戏系统。</h1>
+        <p class="lead">
+          我是 Flynn Hong，也以“秋水 / AutumnWater”这个名字发布和创作。我的核心方向是游戏程序：从 Game Jam 原型、Unity 玩法系统、TapTap 发布项目，到 Unreal Engine 编辑器工具和技术美术流程。我关注的不只是“把功能写出来”，而是把规则、状态、数据和工具组织成稳定的玩家体验。
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#work">查看项目</a>
+          <a class="button secondary" href="https://github.com/SuperRed-Hong">GitHub</a>
+          <a class="button secondary" href="mailto:734005065@qq.com">Email</a>
+        </div>
+      </div>
+
+      <div class="hero-board" aria-label="项目截图拼贴">
+        <figure class="media-tile large">
+          <img src="site-assets-itch-bala-05.png" alt="BALA gameplay screenshot">
+          <figcaption class="media-caption"><span>BALA!!!</span><span>Unity / TapTap</span></figcaption>
+        </figure>
+        <figure class="media-tile">
+          <img src="site-assets-itch-eldritch-duel-gallery-eldritch-07.png" alt="Eldritch Duel battle screenshot">
+          <figcaption class="media-caption"><span>Eldritch Duel</span><span>LAN card battle</span></figcaption>
+        </figure>
+        <figure class="media-tile">
+          <img src="site-assets-itch-dont-touch-me-10.jpg" alt="Don't TOUCH ME gameplay screenshot">
+          <figcaption class="media-caption"><span>Don't TOUCH ME</span><span>Game Jam</span></figcaption>
+        </figure>
+        <div class="hero-card">
+          <div>
+            <strong>Unity gameplay</strong>
+            <span>Player control, skills, UI flow, level logic, audio and feedback loops.</span>
+          </div>
+          <div>
+            <strong>Unreal tooling</strong>
+            <span>Editor plugin, DataLayer workflow, C++ systems, bridge automation.</span>
+          </div>
+          <div>
+            <strong>Technical writing</strong>
+            <span>Specs, architecture notes, refactoring plans and test checklists.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="proof-title">
+      <div class="section-head">
+        <h2 id="proof-title">What I can show.</h2>
+        <p>
+          我做过移动端发布项目、短周期 Game Jam 原型、Unity 玩法系统，也在 Unreal Engine 中学习和实践编辑器工具、战斗系统与技术美术流程。
+        </p>
+      </div>
+      <div class="proof-grid">
+        <div class="proof">
+          <strong>Unreal</strong>
+          <span>StageEditorRepo、GASLearn_Aura 和 UE VFX 练习覆盖插件、工具链、战斗系统与技术美术。</span>
+        </div>
+        <div class="proof">
+          <strong>Unity</strong>
+          <span>BALA!!!、Don’t TOUCH ME、GMTK/CIGA 项目展示玩法系统和快速迭代。</span>
+        </div>
+        <div class="proof">
+          <strong>TapTap</strong>
+          <span>BALA!!! 从 Game Jam 原型继续打磨，发布到移动端平台。</span>
+        </div>
+        <div class="proof">
+          <strong>Docs</strong>
+          <span>Obsidian 中保留架构、规格、性能、重构和 UE GAS 学习笔记。</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="section-head">
+        <h2>Featured Work</h2>
+        <p>
+          这些项目展示了我在团队项目中的主要工作：把玩法规则落到代码里，处理交互反馈、系统状态、UI 流程和引擎工具。
+        </p>
+      </div>
+
+      <article class="feature">
+        <div class="feature-media">
+          <img class="wide" src="site-assets-itch-bala-08.png" alt="BALA gameplay interface">
+          <img src="site-assets-itch-bala-06.png" alt="BALA food inspection gameplay">
+          <img src="site-assets-itch-bala-09.png" alt="BALA level screenshot">
+        </div>
+        <div class="feature-copy">
+          <div>
+            <div class="meta">
+              <span class="pill red">Ludum Dare 53</span>
+              <span class="pill">Unity</span>
+              <span class="pill green">Published</span>
+            </div>
+            <h3>BALA!!!</h3>
+            <p>
+              以“Delivery”为主题展开的菜品审查模拟游戏。我在项目中负责 Game Design / Program，参与玩法规则、菜品与顾客需求系统、Unity 程序实现、反馈优化和后续移动端发布。这个项目最能说明我如何把一个 Game Jam 概念推进成可被玩家实际下载体验的作品。
+            </p>
+          </div>
+          <div class="work-links">
+            <a href="https://www.taptap.cn/app/382977">TapTap</a>
+            <a href="https://autumnwater.itch.io/bala">itch.io</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <div class="feature-copy">
+          <div>
+            <div class="meta">
+              <span class="pill blue">Unity</span>
+              <span class="pill">Mirror Networking</span>
+              <span class="pill gold">Card System</span>
+            </div>
+            <h3>Eldritch Duel</h3>
+            <p>
+              双人局域网卡牌对战项目。我的工作围绕玩法机制实现、卡牌效果、Buff 管理、状态机、房间同步和调试展开。它适合作为“系统型玩法程序”的展示项目：规则复杂、状态多、网络同步和对局流程都需要清晰拆分。
+            </p>
+          </div>
+        </div>
+        <div class="feature-media">
+          <img class="wide" src="site-assets-itch-eldritch-duel-gallery-eldritch-07.png" alt="Eldritch Duel battle screen">
+          <img src="site-assets-itch-eldritch-duel-gallery-eldritch-14.png" alt="Eldritch Duel gameplay state">
+          <img src="site-assets-itch-eldritch-duel-gallery-eldritch-15.png" alt="Eldritch Duel card battle interface">
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="feature-media">
+          <img class="wide" src="site-assets-itch-dont-touch-me-07.jpg" alt="Don't TOUCH ME gameplay screenshot">
+          <img src="site-assets-itch-dont-touch-me-08.jpg" alt="Don't TOUCH ME scene screenshot">
+          <img src="site-assets-itch-dont-touch-me-12.png" alt="Don't TOUCH ME UI screenshot">
+        </div>
+        <div class="feature-copy">
+          <div>
+            <div class="meta">
+              <span class="pill">Unity</span>
+              <span class="pill blue">Game Jam</span>
+              <span class="pill">C# Systems</span>
+            </div>
+            <h3>Don’t TOUCH ME</h3>
+            <p>
+              双人平台追逐项目，包含玩家控制、技能、相机、倒计时、机关、电梯、陷阱、UI、音频和胜负流程。我在项目中参与核心玩家机制、交互系统和 UI/UX 实现。它展示的是短周期内把一组玩法条件拆成可运行系统的能力。
+            </p>
+          </div>
+          <div class="work-links">
+            <a href="https://github.com/SuperRed-Hong/GMTKGameJam">GitHub</a>
+            <a href="https://dskhao.itch.io/dont-touch-me">itch.io</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="tools">
+      <div class="section-head">
+        <h2>Tools & Engine Work</h2>
+        <p>
+          除了玩法项目，我也在持续探索 Unreal 编辑器扩展、工程工具和自动化流程。这些项目训练的是另一类能力：理解编辑器工作流，并把重复、复杂或容易出错的步骤沉淀成工具。
+        </p>
+      </div>
+      <div class="code-feature">
+        <article class="code-card dark">
+          <div class="meta">
+            <span class="pill blue">Unreal Engine 5.6</span>
+            <span class="pill">C++ Plugin</span>
+            <span class="pill green">Editor Tool</span>
+          </div>
+          <h3>StageEditorRepo</h3>
+          <p>
+            基于 Stage-Act-Entity 架构的 UE 编辑器插件，围绕 DataLayer 管理关卡结构和场景流式加载。项目包含 Runtime / Editor 模块拆分、Slate UI、SceneOutliner 集成、Subsystem、Undo/Redo、Blueprint 支持和本地化文档。
+          </p>
+          <span class="code-line">Stage → Act → Entity</span>
+          <span class="code-line">DataLayer import · sync status · editor transaction</span>
+          <div class="work-links">
+            <a href="https://github.com/SuperRed-Hong/StageEditorRepo">GitHub</a>
+          </div>
+        </article>
+
+        <article class="code-card">
+          <div class="meta">
+            <span class="pill blue">Unreal Engine</span>
+            <span class="pill">GAS</span>
+            <span class="pill green">Combat</span>
+          </div>
+          <h3>GASLearn_Aura</h3>
+          <p>
+            Unreal C++ 学习项目，围绕角色、AI、AnimNotify、攻击检测、UI 生命条和 Gameplay Ability / 战斗系统展开。它记录的是我在 Unreal Gameplay 架构上的持续练习：从角色行为到技能效果，再到多人游戏中能力系统的同步成本。
+          </p>
+          <span class="code-line">Combat character · hit detection · gameplay ability system</span>
+          <div class="work-links">
+            <a href="https://github.com/SuperRed-Hong/GASLearn_Aura">GitHub</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="notes">
+      <div class="section-head">
+        <h2>Engineering Notes</h2>
+        <p>
+          我会把开发过程中的架构决策、技术规格、性能问题和重构计划整理成笔记。它们帮助我在复杂系统里保留上下文，也让后续实现、调试和协作更容易追踪。
+        </p>
+      </div>
+      <div class="note-grid">
+        <article class="note-card">
+          <h3>StageEditor 架构</h3>
+          <p>围绕 Stage-Act-Entity 三层模型，记录 Runtime / Editor 模块拆分、MVC 控制器、SUID、StageRegistry、World Subsystem 和状态机设计。</p>
+        </article>
+        <article class="note-card">
+          <h3>DataLayer 规格</h3>
+          <p>整理 DataLayer Import / Sync 的反向查找、导入预览、缓存策略、OutOfSync 判断和 SceneOutliner 扩展。</p>
+        </article>
+        <article class="note-card">
+          <h3>性能与重构</h3>
+          <p>记录查询缓存、事件驱动失效、Panel 模块化、文件体积分解、事务一致性和多人协作同步设计。</p>
+        </article>
+        <article class="note-card">
+          <h3>UE GAS 学习</h3>
+          <p>梳理 Full / Mixed / Minimal 三种 GameplayEffect 复制模式，用于理解多人游戏中的同步范围和网络成本。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-head">
+        <h2>About</h2>
+        <p>
+          我是一名以程序为核心的游戏开发者，工作范围连接玩法设计、系统实现、视觉表达和工具链建设。
+        </p>
+      </div>
+      <div class="about-grid">
+        <div class="about-panel">
+          <h3>Profile</h3>
+          <p>
+            我是 Flynn Hong / 秋水（AutumnWater），主要做游戏程序，也参与玩法设计和视觉实现。我参与过 Ludum Dare、GMTK、CIGA 等 Game Jam 和独立游戏项目，也有作品发布到 TapTap。在“永远的三缺一制作组”中，我的主要职责是程序开发，经历横跨 Unity、Unreal Engine、玩法系统、UI/UX、Git 协作、UE 编辑器工具和技术美术 VFX。
+          </p>
+        </div>
+        <div class="about-panel">
+          <h3>Working Style</h3>
+          <p>
+            我习惯先把系统拆开：对象、状态、数据来源、同步路径、失败情况、调试入口。这个习惯来自 Game Jam 的快速迭代，也来自 StageEditor 这类长期工具项目中反复遇到的数据一致性、编辑器事务、性能和协作问题。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-band">
+        <div>
+          <h2>Contact</h2>
+          <p class="body-copy">
+            如果你想了解我的项目代码、已发布作品或团队背景，可以从这些链接开始。
+          </p>
+          <div class="link-list">
+            <a href="https://github.com/SuperRed-Hong">GitHub</a>
+            <a href="https://www.taptap.cn/app/382977">TapTap</a>
+            <a href="https://www.neversufficient.com/">永远的三缺一</a>
+            <a href="https://www.figma.com/design/6B36AbeSRW9fFag7OqaqXu/%E6%B4%AA%E7%A1%95-%E6%80%BB%E6%8E%92%E7%89%88-%E4%BF%A1%E6%81%AF%E9%A1%B5?node-id=0-1&t=k1GRHHP17CFEtzhb-1">Figma Portfolio</a>
+            <a href="mailto:734005065@qq.com">Email</a>
+          </div>
+        </div>
+        <a class="button" href="https://github.com/SuperRed-Hong">Open GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    Flynn Hong / 秋水 (AutumnWater) · Game Programmer Portfolio
+  </footer>
+</body>
+</html>
