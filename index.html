@@ -610,6 +610,18 @@
         font-size: 34px;
       }
     }
+    section[id] { scroll-margin-top: 110px; }
+    .game-library { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+    .game-card { display: flex; flex-direction: column; border: 2px solid var(--line); background: var(--panel); box-shadow: 6px 6px 0 var(--shadow); overflow: hidden; }
+    .game-card > img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #191815; border-bottom: 2px solid var(--line); }
+    .game-card-body { display: flex; flex-direction: column; flex: 1; gap: 14px; padding: 20px; }
+    .game-card h3 { margin: 0; font-size: 24px; line-height: 1.25; }
+    .game-card p { margin: 0; font-size: 16px; line-height: 1.7; }
+    .game-card .work-links { margin-top: auto; padding-top: 10px; }
+    .game-role { color: var(--muted); font-size: 14px !important; }
+    .seven-seas-media img { object-fit: contain; }
+    @media (max-width: 900px) { .game-library { grid-template-columns: 1fr; } .game-card > img { max-height: 360px; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 </head>
 <body>
@@ -708,9 +720,24 @@
       <div class="section-head">
         <h2>Featured Work</h2>
         <p>
-          这些项目展示了我在团队项目中的主要工作：把玩法规则落到代码里，处理交互反馈、系统状态、UI 流程和引擎工具。
+          从 Game Jam 到课程原型：这里收录了我在 itch.io 上参与制作的全部 6 款公开游戏，以及 Eldritch Duel。每款游戏都附有玩法介绍；可试玩的作品可以直接前往 itch.io。
         </p>
       </div>
+
+      <article class="feature" id="seven-seas">
+        <div class="feature-media single seven-seas-media">
+          <img src="seven-seas-cover.png" alt="Seven Seas 像素风钓鱼游戏封面" loading="lazy" width="630" height="500">
+        </div>
+        <div class="feature-copy">
+          <div>
+            <div class="meta"><span class="pill green">2026 · MEAE Prototype 1</span><span class="pill blue">Unity</span><span class="pill">Motion Controls</span></div>
+            <h3>Seven Seas</h3>
+            <p>一款复古像素风钓鱼游戏，灵感来自 Angler Dangler（1982）。蓄力抛竿、把握咬钩时机，再一边控制鱼线张力、一边绕过障碍收鱼；支持电脑操作与移动设备体感输入。</p>
+            <p class="game-role">我的职责：团队唯一程序。负责钓鱼核心流程、体感输入、鱼类行为、交互反馈、调试工具与构建整合。</p>
+          </div>
+          <div class="work-links"><a href="https://sevenseasgames777.itch.io/sevenseas">试玩 Seven Seas ↗</a></div>
+        </div>
+      </article>
 
       <article class="feature">
         <div class="feature-media">
@@ -782,6 +809,45 @@
           </div>
         </div>
       </article>
+    </section>
+
+    <section id="more-games" aria-labelledby="more-games-title">
+      <div class="section-head">
+        <h2 id="more-games-title">More Games, More Experiments.</h2>
+        <p>我参与制作的其他团队作品：从猫车贪吃蛇、节奏演讲，到挖矿与防守。每个项目都链接到原始发布页和完整作者名单。</p>
+      </div>
+      <div class="game-library">
+        <article class="game-card">
+          <img src="neko-snake-cover.jpg" alt="猫猫特快 Neko-snake 游戏封面" loading="lazy" width="630" height="500">
+          <div class="game-card-body">
+            <div class="meta"><span class="pill blue">Unity</span><span class="pill">Snake-like</span></div>
+            <h3>猫猫特快<br>Neko-snake</h3>
+            <p>引导一辆不断变长的“猫车”，收集沿途猫球、追求更高分数。特殊猫球让熟悉的贪吃蛇玩法多了一层变化。</p>
+            <p class="game-role">团队作品 · itch.io 共同作者 AutumnWater</p>
+            <div class="work-links"><a href="https://dskhao.itch.io/neko-snake">试玩 Neko-snake ↗</a></div>
+          </div>
+        </article>
+        <article class="game-card">
+          <img src="teleprompter3000-cover.jpg" alt="TelePrompter3000 节奏演讲游戏封面" loading="lazy" width="630" height="500">
+          <div class="game-card-body">
+            <div class="meta"><span class="pill blue">Unity</span><span class="pill gold">Rhythm</span></div>
+            <h3>TelePrompter3000</h3>
+            <p>临时被推上 GDC 舞台的演讲者，只能跟着提词器即兴发挥。使用 J / K 键完成这场致敬《节奏天国》的荒诞演讲。</p>
+            <p class="game-role">团队作品 · itch.io 共同作者 AutumnWater</p>
+            <div class="work-links"><a href="https://dskhao.itch.io/teleprompter3000">试玩 TelePrompter3000 ↗</a></div>
+          </div>
+        </article>
+        <article class="game-card">
+          <img src="diggernaut-cover.png" alt="Diggernaut 挖矿冒险游戏封面" loading="lazy" width="630" height="500">
+          <div class="game-card-body">
+            <div class="meta"><span class="pill blue">Unity</span><span class="pill green">Kenney Jam 2023</span></div>
+            <h3>Diggernaut</h3>
+            <p>在地下探索、挖掘黄金与钻石，同时保护据点免受怪物侵袭。为 Kenney Jam 2023 在 48 小时内完成的冒险原型。</p>
+            <p class="game-role">团队作品 · itch.io 共同作者 AutumnWater</p>
+            <div class="work-links"><a href="https://dskhao.itch.io/diggernaut">试玩 Diggernaut ↗</a></div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section id="tools">
@@ -885,6 +951,7 @@
             如果你想了解我的项目代码、已发布作品或团队背景，可以从这些链接开始。
           </p>
           <div class="link-list">
+            <a href="https://autumnwater.itch.io/">itch.io · 全部游戏</a>
             <a href="https://github.com/SuperRed-Hong">GitHub</a>
             <a href="https://www.taptap.cn/app/382977">TapTap</a>
             <a href="https://www.neversufficient.com/">永远的三缺一</a>
